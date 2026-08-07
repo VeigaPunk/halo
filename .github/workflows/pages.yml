@@ -1,8 +1,11 @@
 name: Deploy to GitHub Pages
 
+# GitHub Pages for this project is served from VeigaPunk.github.io/halo/
+# (user site). This workflow is kept as a no-op placeholder so the
+# standalone repo stays ready if Pages is later enabled on VeigaPunk/halo
+# (Settings → Pages → GitHub Actions).
+
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -10,23 +13,10 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
 jobs:
-  deploy:
+  note:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - run: |
+          echo "Live site: https://veigapunk.github.io/halo/"
+          echo "Source static export lives in docs/ and is published via VeigaPunk.github.io"
