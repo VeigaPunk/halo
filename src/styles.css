@@ -1,0 +1,325 @@
+@import "tailwindcss";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/jetbrains-mono/600.css";
+@import "@fontsource/jetbrains-mono/700.css";
+@import "tw-animate-css";
+
+/* ─────────────────────────────────────────────────────────────
+   HORIZON HALO — design language (ds4cc.com / comma design)
+   Green console · JetBrains Mono NL · flat UI · peripheral halo
+   Tokens from: veigapunk.github.io/horizon-halo-comma-design
+   ───────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Core surfaces — deep green-black console */
+  --color-bg: #050605;
+  --color-bg-elevated: #0a0c0a;
+  --color-bg-subtle: #0d100d;
+  --color-bg-panel: #121612;
+  --color-bg-hover: #161c16;
+  --color-bg-callout: #0d140d;
+
+  /* Foreground — phosphor green family */
+  --color-fg: #e8f0e6;
+  --color-fg-body: #c5d0c3;
+  --color-fg-muted: #7a8a78;
+  --color-fg-subtle: #5a6a58;
+  --color-fg-faint: #3a4a38;
+
+  /* Borders — olive console */
+  --color-border: #1e281e;
+  --color-border-strong: #2a332a;
+  --color-border-halo: #3a4a38;
+
+  /* Horizon Halo spectrum */
+  --color-green: #51ff00;
+  --color-safe: #51ff00;
+  --color-accent: #51ff00;
+  --color-accent-fg: #000000;
+  --color-accent-soft: #b8f5a0;
+  --color-amber: #ffb020;
+  --color-warn: #ffb020;
+  --color-red: #ff3b30;
+  --color-danger: #ff3b30;
+  --color-cyan: #3de0ff;
+  --color-success: #51ff00;
+  --color-halo: #51ff00;
+  --color-horizon: #51ff00;
+  --color-horizon-glow: #51ff00;
+
+  /* Radius — flat modern (comma post-Qt): small, not pill-soup */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-2xl: 12px;
+
+  /* Type — JetBrains Mono NL (ligatures off) */
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-sans: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-xs: 0.7rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.92rem;
+  --text-lg: 1.05rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.85rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 2.75rem;
+
+  --ease-out-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-quick: 120ms;
+  --duration-fast: 180ms;
+  --duration-medium: 250ms;
+  --duration-slow: 400ms;
+
+  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-halo: 0 0 0 1px #2a332a, 0 0 24px color-mix(in srgb, #51ff00 18%, transparent);
+  --shadow-device: 0 0 0 6px #0a0c0a, 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    /* NL = no ligatures */
+    font-feature-settings: "calt" off, "liga" off;
+    font-variant-ligatures: none;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-green) 35%, transparent);
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-green);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-green);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 2px;
+    border: 2px solid var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-fg-muted);
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Console field — deep void with faint green phosphor wash */
+  .horizon-field {
+    background:
+      radial-gradient(
+        90% 50% at 50% 0%,
+        color-mix(in srgb, var(--color-green) 6%, transparent) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        70% 40% at 50% 100%,
+        color-mix(in srgb, var(--color-green) 5%, transparent) 0%,
+        transparent 50%
+      ),
+      var(--color-bg);
+  }
+
+  /* Peripheral Horizon Halo edge glow */
+  .halo-ring {
+    box-shadow: var(--shadow-halo);
+  }
+
+  .surface-panel {
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+  }
+
+  .surface-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    transition:
+      border-color var(--duration-fast) linear,
+      background-color var(--duration-fast) linear,
+      box-shadow var(--duration-fast) linear;
+  }
+
+  .surface-card:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-bg-panel);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-green) 25%, transparent);
+  }
+
+  .label-meta {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    font-weight: 500;
+  }
+
+  /* Phosphor green title glow — restrained */
+  .shimmer-text {
+    color: var(--color-green);
+    text-shadow: 0 0 24px color-mix(in srgb, var(--color-green) 35%, transparent);
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-rise {
+    animation: rise-in var(--duration-slow) var(--ease-out-smooth) both;
+  }
+
+  .stagger-1 {
+    animation-delay: 40ms;
+  }
+  .stagger-2 {
+    animation-delay: 80ms;
+  }
+  .stagger-3 {
+    animation-delay: 120ms;
+  }
+  .stagger-4 {
+    animation-delay: 160ms;
+  }
+  .stagger-5 {
+    animation-delay: 200ms;
+  }
+
+  /* Horizon line — faint phosphor cut */
+  .horizon-line {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--color-green) 40%, transparent) 50%,
+      transparent 100%
+    );
+  }
+
+  /* Confidence dot — green with bloom */
+  .halo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-green);
+    box-shadow: 0 0 8px var(--color-green);
+  }
+
+  /* Callout — green rail (spec) */
+  .hh-callout {
+    border-left: 3px solid var(--color-green);
+    background: var(--color-bg-callout);
+    padding: 12px 14px;
+  }
+
+  /* Peripheral edge vignette for hero / flagship surfaces */
+  .hh-edge-halo {
+    box-shadow:
+      inset 0 0 48px color-mix(in srgb, var(--color-green) 12%, transparent),
+      inset 0 0 1px var(--color-border-strong);
+  }
+
+  /* Console chip — state chip style from Horizon Halo HUD */
+  .hh-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+}
